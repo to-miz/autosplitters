@@ -1,6 +1,6 @@
 state("OnimushaWotS", "")
 {
-    byte TransitionPhase: 0xCBD3E58, 0x110, 0x10, 0x78;
+    byte TransitionPhase: 0xCBD3E58, 0x110, 0x10, 0x78; // ANALYZE = 1, LOADING = 2, FINISH = 3
     int StageID: 0xCBD3E58, 0x110, 0x10, 0x18, 0x48;
     int AreaID: 0xCBD3E58, 0x110, 0x10, 0x18, 0x4C;
     byte BossLocalPhase: 0xCBD3E58, 0xA8, 0x68;
@@ -263,8 +263,7 @@ start
 split
 {
     // Stage splits (trigger when transitioning into a new stage)
-    // FINISH = 3
-    if (current.TransitionPhase == 3 && current.StageID != -1 && current.StageID != old.StageID)
+    if (current.StageID != -1 && current.StageID != old.StageID)
     {
         if (current.StageID == 0 && settings["Split on Stage: Eastern Kyoto (Stage 100)"]) return true;
         if (current.StageID == 1 && settings["Split on Stage: Stage 200"]) return true;
@@ -290,7 +289,7 @@ split
     }
 
     // Area splits (trigger when entering a new area within the same stage)
-    if (current.TransitionPhase == 3 && current.AreaID != -1 && current.StageID == old.StageID && current.AreaID != old.AreaID)
+    if (current.AreaID != -1 && current.StageID == old.StageID && current.AreaID != old.AreaID)
     {
         // Stage 100
         if (current.AreaID == 0 && settings["Split on Stage 100: Area100_000 - Rokudo-chinnoji Temple"]) return true;
