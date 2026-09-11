@@ -6,6 +6,8 @@ state("OnimushaWotS", "")
     byte BossLocalPhase: 0xCBD3E58, 0xA8, 0x68;
     ushort BossTargetID: 0xCBD3E58, 0xA8, 0x6C;
     uint RealTimeSec: 0xCBD3E58, 0xF0;
+    int LastClearedMissionId: 0xCBC7270, 0x150;
+    int LastClearedMissionType: 0xCBC7270, 0x154; // MAIN_MISSION = 0, SUB_MISSION = 1, CHARACTER_MISSION = 2
 }
 
 startup
@@ -13,6 +15,64 @@ startup
     // This mode starts automatically when the first bossfight starts,
     // and splits when a boss is defeated.
     settings.Add("Bossrush", false);
+
+    // Mission Splits
+    settings.Add("MainMissionSplit", false, "Split when completing a main mission");
+    settings.Add("SideMissionSplit", false, "Split when completing a side mission");
+    settings.Add("CharMissionSplit", false, "Split when completing a character mission");
+
+    settings.Add("MS_PREFACE", false, "Split on Mission MS_PREFACE");
+    settings.Add("MS_000000", false, "Split on Mission MS_000000");
+    settings.Add("MS_000010", false, "Split on Mission MS_000010");
+    settings.Add("MS_000040", false, "Split on Mission MS_000040");
+    settings.Add("MS_032000", false, "Split on Mission MS_032000");
+    settings.Add("MS_000030", false, "Split on Mission MS_000030");
+    settings.Add("MS_000045", false, "Split on Mission MS_000045");
+    settings.Add("MS_032010", false, "Split on Mission MS_032010");
+    settings.Add("MS_033000", false, "Split on Mission MS_033000");
+    settings.Add("MS_000020", false, "Split on Mission MS_000020");
+    settings.Add("MS_000047", false, "Split on Mission MS_000047");
+    settings.Add("MS_000050", false, "Split on Mission MS_000050");
+    settings.Add("MS_000055", false, "Split on Mission MS_000055");
+    settings.Add("MS_000060", false, "Split on Mission MS_000060");
+    settings.Add("MS_000080", false, "Split on Mission MS_000080");
+    settings.Add("MS_032020", false, "Split on Mission MS_032020");
+    settings.Add("MS_000085", false, "Split on Mission MS_000085");
+    settings.Add("MS_000070", false, "Split on Mission MS_000070");
+    settings.Add("MS_000090", false, "Split on Mission MS_000090");
+    settings.Add("MS_032030", false, "Split on Mission MS_032030");
+    settings.Add("MS_000100", false, "Split on Mission MS_000100");
+    settings.Add("MS_000120", false, "Split on Mission MS_000120");
+    settings.Add("MS_000110", false, "Split on Mission MS_000110");
+    settings.Add("MS_000130", false, "Split on Mission MS_000130");
+    settings.Add("MS_000140", false, "Split on Mission MS_000140");
+    settings.Add("MS_000150", false, "Split on Mission MS_000150");
+    settings.Add("MS_100200", false, "Split on Mission MS_100200");
+    settings.Add("MS_105000", false, "Split on Mission MS_105000");
+    settings.Add("MS_100201", false, "Split on Mission MS_100201");
+    settings.Add("MS_100202", false, "Split on Mission MS_100202");
+    settings.Add("MS_100401", false, "Split on Mission MS_100401");
+    settings.Add("MS_105005", false, "Split on Mission MS_105005");
+    settings.Add("MS_100100", false, "Split on Mission MS_100100");
+    settings.Add("MS_105003", false, "Split on Mission MS_105003");
+    settings.Add("MS_205000", false, "Split on Mission MS_205000");
+    settings.Add("MS_205001", false, "Split on Mission MS_205001");
+    settings.Add("MS_215000", false, "Split on Mission MS_215000");
+    settings.Add("MS_205002", false, "Split on Mission MS_205002");
+    settings.Add("MS_205003", false, "Split on Mission MS_205003");
+    settings.Add("MS_205004", false, "Split on Mission MS_205004");
+    settings.Add("MS_205005", false, "Split on Mission MS_205005");
+    settings.Add("MS_215001", false, "Split on Mission MS_215001");
+    settings.Add("MS_230200", false, "Split on Mission MS_230200");
+    settings.Add("MS_230400", false, "Split on Mission MS_230400");
+    settings.Add("MS_230401", false, "Split on Mission MS_230401");
+    settings.Add("MS_230600", false, "Split on Mission MS_230600");
+    settings.Add("MS_230700", false, "Split on Mission MS_230700");
+    settings.Add("MS_255000", false, "Split on Mission MS_255000");
+    settings.Add("MS_255001", false, "Split on Mission MS_255001");
+    settings.Add("MS_255002", false, "Split on Mission MS_255002");
+    settings.Add("MS_255003", false, "Split on Mission MS_255003");
+    settings.Add("MS_255004", false, "Split on Mission MS_255004");
 
     // Stage splits
     settings.Add("Split on Stage: Eastern Kyoto (Stage 100)", false);
@@ -354,10 +414,73 @@ split
         if (current.AreaID == 78 && settings["Split on Stage 900: Area900_000"]) return true;
     }
 
+    // Mission Splits (trigger when a mission is cleared)
+    if (current.LastClearedMissionId != -1 && current.LastClearedMissionId != old.LastClearedMissionId)
+    {
+        // Split by mission type
+        if (settings["MainMissionSplit"] && current.LastClearedMissionType == 0) return true;
+        if (settings["SideMissionSplit"] && current.LastClearedMissionType == 1) return true;
+        if (settings["CharMissionSplit"] && current.LastClearedMissionType == 2) return true;
+
+        // Split by individual mission
+        if (current.LastClearedMissionId == 0 && settings["MS_PREFACE"]) return true;
+        if (current.LastClearedMissionId == 1 && settings["MS_000000"]) return true;
+        if (current.LastClearedMissionId == 2 && settings["MS_000010"]) return true;
+        if (current.LastClearedMissionId == 3 && settings["MS_000040"]) return true;
+        if (current.LastClearedMissionId == 4 && settings["MS_032000"]) return true;
+        if (current.LastClearedMissionId == 5 && settings["MS_000030"]) return true;
+        if (current.LastClearedMissionId == 6 && settings["MS_000045"]) return true;
+        if (current.LastClearedMissionId == 7 && settings["MS_032010"]) return true;
+        if (current.LastClearedMissionId == 8 && settings["MS_033000"]) return true;
+        if (current.LastClearedMissionId == 9 && settings["MS_000020"]) return true;
+        if (current.LastClearedMissionId == 10 && settings["MS_000047"]) return true;
+        if (current.LastClearedMissionId == 11 && settings["MS_000050"]) return true;
+        if (current.LastClearedMissionId == 12 && settings["MS_000055"]) return true;
+        if (current.LastClearedMissionId == 13 && settings["MS_000060"]) return true;
+        if (current.LastClearedMissionId == 14 && settings["MS_000080"]) return true;
+        if (current.LastClearedMissionId == 15 && settings["MS_032020"]) return true;
+        if (current.LastClearedMissionId == 16 && settings["MS_000085"]) return true;
+        if (current.LastClearedMissionId == 17 && settings["MS_000070"]) return true;
+        if (current.LastClearedMissionId == 18 && settings["MS_000090"]) return true;
+        if (current.LastClearedMissionId == 19 && settings["MS_032030"]) return true;
+        if (current.LastClearedMissionId == 20 && settings["MS_000100"]) return true;
+        if (current.LastClearedMissionId == 21 && settings["MS_000120"]) return true;
+        if (current.LastClearedMissionId == 22 && settings["MS_000110"]) return true;
+        if (current.LastClearedMissionId == 23 && settings["MS_000130"]) return true;
+        if (current.LastClearedMissionId == 24 && settings["MS_000140"]) return true;
+        if (current.LastClearedMissionId == 25 && settings["MS_000150"]) return true;
+        if (current.LastClearedMissionId == 26 && settings["MS_100200"]) return true;
+        if (current.LastClearedMissionId == 27 && settings["MS_105000"]) return true;
+        if (current.LastClearedMissionId == 28 && settings["MS_100201"]) return true;
+        if (current.LastClearedMissionId == 29 && settings["MS_100202"]) return true;
+        if (current.LastClearedMissionId == 30 && settings["MS_100401"]) return true;
+        if (current.LastClearedMissionId == 31 && settings["MS_105005"]) return true;
+        if (current.LastClearedMissionId == 32 && settings["MS_100100"]) return true;
+        if (current.LastClearedMissionId == 33 && settings["MS_105003"]) return true;
+        if (current.LastClearedMissionId == 34 && settings["MS_205000"]) return true;
+        if (current.LastClearedMissionId == 35 && settings["MS_205001"]) return true;
+        if (current.LastClearedMissionId == 36 && settings["MS_215000"]) return true;
+        if (current.LastClearedMissionId == 37 && settings["MS_205002"]) return true;
+        if (current.LastClearedMissionId == 38 && settings["MS_205003"]) return true;
+        if (current.LastClearedMissionId == 39 && settings["MS_205004"]) return true;
+        if (current.LastClearedMissionId == 40 && settings["MS_205005"]) return true;
+        if (current.LastClearedMissionId == 41 && settings["MS_215001"]) return true;
+        if (current.LastClearedMissionId == 42 && settings["MS_230200"]) return true;
+        if (current.LastClearedMissionId == 43 && settings["MS_230400"]) return true;
+        if (current.LastClearedMissionId == 44 && settings["MS_230401"]) return true;
+        if (current.LastClearedMissionId == 45 && settings["MS_230600"]) return true;
+        if (current.LastClearedMissionId == 46 && settings["MS_230700"]) return true;
+        if (current.LastClearedMissionId == 47 && settings["MS_255000"]) return true;
+        if (current.LastClearedMissionId == 48 && settings["MS_255001"]) return true;
+        if (current.LastClearedMissionId == 49 && settings["MS_255002"]) return true;
+        if (current.LastClearedMissionId == 50 && settings["MS_255003"]) return true;
+        if (current.LastClearedMissionId == 51 && settings["MS_255004"]) return true;
+    }
+
     // Boss splits, detect transitioning from Main (2) to Wait_End_Victory (3), detecting a win.
     if (old.BossLocalPhase == 2 && current.BossLocalPhase == 3)
     {
-        if (current.BossTargetID == 30569 && (settings["Byakue_EM300_00_00"] || settings["Bossrush"])) return true;
+        if (current.BossTargetID == 30569 && (settings["Byakue_0_EM300_00_00"] || settings["Bossrush"])) return true;
         if (current.BossTargetID == 5370 && (settings["Byakue_1_EM300_00_01"] || settings["Bossrush"])) return true;
         if (current.BossTargetID == 26515 && (settings["Dohatsu_Ten_0_EM301_00_00"] || settings["Bossrush"])) return true;
         if (current.BossTargetID == 28128 && (settings["Dohatsu_Ten_1_EM301_00_01"] || settings["Bossrush"])) return true;
