@@ -20,7 +20,7 @@ startup
     settings.Add("Bossrush", false);
 
     // Mission Splits
-    settings.Add("MissionSplit", false, "Split when completing a mission");
+    settings.Add("MissionSplit", true, "Split when completing a mission");
 
     // Boss splits
     settings.Add("SplitBossFightStart", false, "Split on Boss Fight Start");
