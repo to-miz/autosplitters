@@ -23,26 +23,26 @@ startup
     settings.Add("MissionSplit", true, "Split when completing a mission");
 
     // Boss splits
-    settings.Add("SplitBossFightStart", false, "Split on Boss Fight Start");
+    settings.Add("SplitBossFightStart", false, "Boss Rematch: Split on Fight Start");
 
-    settings.Add("Byakue_0_EM300_00_00", false, "Split on Boss Defeat: Byakue");
-    settings.Add("Byakue_1_EM300_00_01", false, "Split on Boss Defeat: Byakue (Enhanced)");
-    settings.Add("Dohatsu_Ten_0_EM301_00_00", false, "Split on Boss Defeat: Dohatsu-Ten");
-    settings.Add("Dohatsu_Ten_1_EM301_00_01", false, "Split on Boss Defeat: Dohatsu-Ten (Enhanced)");
-    settings.Add("Nue_Dual_EM304_00_00", false, "Split on Boss Defeat: Nue Dual");
-    settings.Add("Sasaki_Ganryu_0_EM503_00_00", false, "Split on Boss Defeat: Sasaki Ganryu");
-    settings.Add("Sasaki_Ganryu_1_EM503_00_01", false, "Split on Boss Defeat: Sasaki Ganryu (Altered)");
-    settings.Add("Daidara_EM500_00_00", false, "Split on Boss Defeat: Daidara");
-    settings.Add("Rasho_gan_EM502_00_00", false, "Split on Boss Defeat: Rasho-gan");
-    settings.Add("Greater_Nue_EM501_00_00", false, "Split on Boss Defeat: Greater Nue");
-    settings.Add("Benkei_0_EM504_00_00", false, "Split on Boss Defeat: Benkei");
-    settings.Add("Benkei_1_EM504_00_01", false, "Split on Boss Defeat: Benkei (Fully Armed)");
-    settings.Add("Ifuu_EM512_00_00", false, "Split on Boss Defeat: Ifuu");
-    settings.Add("Burai_EM513_00_00", false, "Split on Boss Defeat: Burai");
-    settings.Add("Ifuu_and_Burai_EM512_00_01", false, "Split on Boss Defeat: Ifuu and Burai");
-    settings.Add("Shuten_Doji_EM507_00_00", false, "Split on Boss Defeat: Shuten Doji");
-    settings.Add("Dokyo_EM510_00_00", false, "Split on Boss Defeat: Dokyo");
-    settings.Add("Minamoto_no_Yoshitsune_EM514_00_00", false, "Split on Boss Defeat: Minamoto no Yoshitsune");
+    settings.Add("Byakue_0_EM300_00_00", false, "Boss Rematch: Split on Defeating: Byakue");
+    settings.Add("Byakue_1_EM300_00_01", false, "Boss Rematch: Split on Defeating: Byakue (Enhanced)");
+    settings.Add("Dohatsu_Ten_0_EM301_00_00", false, "Boss Rematch: Split on Defeating: Dohatsu-Ten");
+    settings.Add("Dohatsu_Ten_1_EM301_00_01", false, "Boss Rematch: Split on Defeating: Dohatsu-Ten (Enhanced)");
+    settings.Add("Nue_Dual_EM304_00_00", false, "Boss Rematch: Split on Defeating: Nue Dual");
+    settings.Add("Sasaki_Ganryu_0_EM503_00_00", false, "Boss Rematch: Split on Defeating: Sasaki Ganryu");
+    settings.Add("Sasaki_Ganryu_1_EM503_00_01", false, "Boss Rematch: Split on Defeating: Sasaki Ganryu (Altered)");
+    settings.Add("Daidara_EM500_00_00", false, "Boss Rematch: Split on Defeating: Daidara");
+    settings.Add("Rasho_gan_EM502_00_00", false, "Boss Rematch: Split on Defeating: Rasho-gan");
+    settings.Add("Greater_Nue_EM501_00_00", false, "Boss Rematch: Split on Defeating: Greater Nue");
+    settings.Add("Benkei_0_EM504_00_00", false, "Boss Rematch: Split on Defeating: Benkei");
+    settings.Add("Benkei_1_EM504_00_01", false, "Boss Rematch: Split on Defeating: Benkei (Fully Armed)");
+    settings.Add("Ifuu_EM512_00_00", false, "Boss Rematch: Split on Defeating: Ifuu");
+    settings.Add("Burai_EM513_00_00", false, "Boss Rematch: Split on Defeating: Burai");
+    settings.Add("Ifuu_and_Burai_EM512_00_01", false, "Boss Rematch: Split on Defeating: Ifuu and Burai");
+    settings.Add("Shuten_Doji_EM507_00_00", false, "Boss Rematch: Split on Defeating: Shuten Doji");
+    settings.Add("Dokyo_EM510_00_00", false, "Boss Rematch: Split on Defeating: Dokyo");
+    settings.Add("Minamoto_no_Yoshitsune_EM514_00_00", false, "Boss Rematch: Split on Defeating: Minamoto no Yoshitsune");
 }
 
 init
